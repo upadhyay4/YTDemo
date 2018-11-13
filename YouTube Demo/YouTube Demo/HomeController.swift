@@ -59,6 +59,20 @@ class VideoCell: UICollectionViewCell {
         return imageView
     }()
     
+    let titleLabel: UILabel = {
+       let label = UILabel()
+        label.backgroundColor = .purple
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let subTitleTextView: UITextView = {
+        let textView = UITextView()
+        textView.backgroundColor = .red
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
+    }()
+    
     let separatorView: UIView = {
        let view = UIView()
         view.backgroundColor = .green
@@ -71,13 +85,45 @@ class VideoCell: UICollectionViewCell {
         addSubview(thumbnailImageView)
         addSubview(separatorView)
         addSubview(userProfileImageView)
+        addSubview(titleLabel)
+        addSubview(subTitleTextView)
         
 //        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-16-[v0]-16-[v1(1)]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": thumbnailImageView, "v1": separatorView]))
         
         addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: thumbnailImageView)
-         addConstraintsWithFormat(format: "H:|-16-[v0(44)]|", views: userProfileImageView)
+        addConstraintsWithFormat(format: "H:|-16-[v0(44)]|", views: userProfileImageView)
+        
+        // vertical constraints
         addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(44)]-16-[v2(1)]|", views: thumbnailImageView, userProfileImageView, separatorView)
+        
         addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
+        
+        // top constraint
+        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: thumbnailImageView, attribute: .bottom, multiplier: 1.0, constant: 8.0))
+        
+        // left constraint
+        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .left, relatedBy: .equal, toItem: userProfileImageView, attribute: .right, multiplier: 1.0, constant: 8.0))
+        
+        // right constraint
+        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1.0, constant: 0.0))
+        
+        // height constraint
+        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0.0, constant: 20.0))
+        
+//        addConstraintsWithFormat(format: "V:[v0(20)]", views: titleLabel)
+//        addConstraintsWithFormat(format: "H:|[v0]|", views: titleLabel)
+        
+        // top constraint
+        addConstraint(NSLayoutConstraint(item: subTitleTextView, attribute: .top, relatedBy: .equal, toItem: titleLabel, attribute: .bottom, multiplier: 1.0, constant: 8.0))
+        
+        // left constraint
+        addConstraint(NSLayoutConstraint(item: subTitleTextView, attribute: .left, relatedBy: .equal, toItem: userProfileImageView, attribute: .right, multiplier: 1.0, constant: 8.0))
+        
+        // right constraint
+        addConstraint(NSLayoutConstraint(item: subTitleTextView, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1.0, constant: 0.0))
+        
+        // height constraint
+        addConstraint(NSLayoutConstraint(item: subTitleTextView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0.0, constant: 20.0))
     }
     
     required init?(coder aDecoder: NSCoder) {
